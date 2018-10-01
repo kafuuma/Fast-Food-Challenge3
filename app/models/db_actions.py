@@ -77,4 +77,4 @@ class UserDbQueries(Database):
         self.conn.commit()
 
 
-UserDbQueries()
+

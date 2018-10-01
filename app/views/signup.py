@@ -23,3 +23,5 @@ class Signup(Resource):
                     return {"response":"user exists"},409
             return {"response": "Passwords do not match"}, 401
         return {"response": "Fields Empty"}, 400
+
+
