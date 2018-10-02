@@ -15,7 +15,6 @@ class PlaceOrders(Resource):
                 try:
                     Orders(user_info["email"],menu_id).create_order()
                     if OrderDbQueries().fetch_order(user_info["email"], menu_id):
-                        print(OrderDbQueries().fetch_order(user_info["email"], menu_id))
                         return{"response":"successfuly placed food order"}
                     return{"response":"order not successful"}
                 except:
