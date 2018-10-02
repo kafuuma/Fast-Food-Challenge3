@@ -11,11 +11,12 @@ class Signup(Resource):
         password = user_request.get("password")
         email = user_request.get("email")
         contact = user_request.get("contact")
+        user_role = user_request.get("user_role")
         confirm_password = user_request.get("confirm_password")
         if user_request:
             if password == confirm_password:
                 try:
-                    Users(email, password, username, contact).signup()
+                    Users(email, password, username, contact, user_role).signup()
                     if Users(email, password).login():
                         return {"response":"signup successfull"}, 201
                     return {"response":"signup not successful"}, 500
