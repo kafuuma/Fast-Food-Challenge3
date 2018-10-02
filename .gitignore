@@ -1,0 +1,13 @@
+.vscode
+/venv/
+venv
+app/models/users.pyc
+app/models/db_actions.pyc
+app/models/__init__.pyc
+app/views/signup.pyc
+app/views/__init__.pyc
+__pycache__/
+app/__pycache__/
+*/*.pyc
+app/models/validate.pyc
+
