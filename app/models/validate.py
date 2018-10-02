@@ -1,6 +1,7 @@
 import re
 from app.models.users import Users
 from app.models.menu import Menu
+from app.models.orders import Orders
 from jwt import decode
 from app import app
 
@@ -20,4 +21,7 @@ class VerifyUsers(Users):
 
 
 class VerifyMenu(Menu):
+    pass
+
+class VerifyOrders(Orders):
     pass
