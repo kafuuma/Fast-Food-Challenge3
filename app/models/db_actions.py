@@ -197,6 +197,7 @@ class OrderDbQueries(Database):
         self.cur.execute(sql)
         output = self.cur.fetchall()
         return self.convert_output_to_dict(output)
+        
     
     def fetch_orders(self, email):
         sql = (
@@ -228,7 +229,7 @@ class OrderDbQueries(Database):
                 "menu_id": order["menu_id"],
                 "email": order["email"],
                 "status": order["status"],
-                "requested_at": order["requested_at"]
+                "ordered_at": order["ordered_at"]
                 }
             orders.append(result)
         return orders
@@ -254,3 +255,4 @@ class OrderDbQueries(Database):
 # dbmenu.create_table()
 # dborder = OrderDbQueries()
 # dborder.create_table()
+
