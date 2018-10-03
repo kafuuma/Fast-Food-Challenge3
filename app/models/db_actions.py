@@ -229,7 +229,7 @@ class OrderDbQueries(Database):
                 "menu_id": order["menu_id"],
                 "email": order["email"],
                 "status": order["status"],
-                "ordered_at": order["ordered_at"]
+                # "ordered_at": order["ordered_at"]
                 }
             orders.append(result)
         return orders
