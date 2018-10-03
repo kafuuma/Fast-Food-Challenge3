@@ -7,6 +7,9 @@ from app import app
 
 
 class VerifyToken:
+    """
+    This class has a static method that decodes tokens
+    """
     @staticmethod
     def validate(token):
         try:

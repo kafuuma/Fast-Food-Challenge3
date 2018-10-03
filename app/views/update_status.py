@@ -5,6 +5,8 @@ from app.models.orders import Orders
 from app.models.db_actions import OrderDbQueries
 
 class UpdateOrderStatus(Resource):
+    """This class inherits from a resource class,
+    it implements an end point for updating order status"""
     def put(self, order_id):
         user_request = request.get_json()
         if user_request:
@@ -16,9 +18,9 @@ class UpdateOrderStatus(Resource):
                     if OrderDbQueries().fetch_order_byId(order_id):
                         try:
                             OrderDbQueries().update_order_status(int(order_id),status)
-                            return{"response":"order status updated to {}".format(status)}
+                            return{"message":"order status updated to {}".format(status)}
                         except:
-                            return{"response":"{} is not valid input".format(status)}
-                    return{"response":"order doesn't exist"}
-            return{"response":"not authenticated"}
-        return{"response":"empty fields"}
+                            return{"message":"{} is not valid input".format(status)}
+                    return{"message":"order doesn't exist"}
+            return{"message":"not authenticated"}
+        return{"message":"empty fields"}

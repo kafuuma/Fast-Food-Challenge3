@@ -19,7 +19,7 @@ class TestFastFood(BaseTest):
             "henry henry", "ark@gmail.com","secret","secret","07777777777","user"   
         )
         self.assertEqual(response.status_code,201)
-        self.assertEqual(json.loads(response.data.decode()),{"response":"signup successfull"})
+        self.assertEqual(json.loads(response.data.decode()),{"message":"signup successfull"})
        
     def test_signup_already_existing_user(self):
         self.post_signup_data(
@@ -29,14 +29,14 @@ class TestFastFood(BaseTest):
             "henry henry", "ark@gmail.com","secret","secret","07777777777","user"   
          )
         self.assertEqual(response.status_code,409)
-        self.assertEqual(json.loads(response.data.decode()),{"response":"user exists"})
+        self.assertEqual(json.loads(response.data.decode()),{"message":"user exists"})
 
     def test_signup_unmatching_passwords(self):
         response = self.post_signup_data(
             "henry henry", "ark@gmail.com","secret","topsecret","07777777777","user"   
            )
         self.assertEqual(response.status_code, 401)
-        self.assertEqual(json.loads(response.data.decode()),{"response": "Passwords do not match"})
+        self.assertEqual(json.loads(response.data.decode()),{"message": "Passwords do not match"})
     
     def test_signup_empty_fields(self):
         response = self.test_client.post(
@@ -45,7 +45,7 @@ class TestFastFood(BaseTest):
                 data= json.dumps({})
             )
         self.assertEqual(response.status_code,400)
-        self.assertEqual(json.loads(response.data.decode()),{"response": "Fields Empty"})
+        self.assertEqual(json.loads(response.data.decode()),{"message": "Fields Empty"})
         
     def test_user_login(self):
         self.post_signup_data(
@@ -63,12 +63,12 @@ class TestFastFood(BaseTest):
             )
         response =self.post_user_login_data("ark@gmail.com", "topsecret")
         self.assertEqual(response.status_code,401)
-        self.assertEqual(json.loads(response.data.decode()),{"response":"wrong password"})
+        self.assertEqual(json.loads(response.data.decode()),{"message":"wrong password"})
 
     def test_login_non_existing_user(self):
         response =self.post_user_login_data("ark@gmail.com", "topsecret")
         self.assertEqual(response.status_code,400)
-        self.assertEqual(json.loads(response.data.decode()),{"response":"User doesnt exist"})
+        self.assertEqual(json.loads(response.data.decode()),{"message":"User doesnt exist"})
 
     def test_log_in_empty_fields(self):
         response = self.test_client.post(
@@ -77,7 +77,7 @@ class TestFastFood(BaseTest):
                 data= json.dumps({})
             )
         self.assertEqual(response.status_code,409)
-        self.assertEqual(json.loads(response.data.decode()), {"response":"empty fields"})
+        self.assertEqual(json.loads(response.data.decode()), {"message":"empty fields"})
 
 
 

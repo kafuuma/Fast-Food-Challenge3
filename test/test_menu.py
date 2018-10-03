@@ -32,7 +32,6 @@ class TestMenu(BaseTest):
                    }
             )
 
-        print(json.loads(response.data), "strjjghjkl")
         self.assertEqual(response.status_code,201)
         
   

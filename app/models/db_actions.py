@@ -92,6 +92,9 @@ class MenuDbQueries(Database):
         Database.__init__(self)
 
     def create_table(self):
+        """
+        This method creates a menu table into the database
+        """
         sql = (
             """CREATE TABLE IF NOT EXISTS menu (menu_id serial PRIMARY KEY ,
             menu_name varchar(100) UNIQUE, menu_price REAL, description varchar(200));
@@ -101,6 +104,9 @@ class MenuDbQueries(Database):
         self.conn.commit()
 
     def create_menu_item(self,menu):
+        """
+        This method insert fields into the menu table
+        """
         sql =(
             """INSERT INTO menu (menu_name, menu_price,  description ) 
             VALUES('{}','{}','{}');
@@ -110,6 +116,9 @@ class MenuDbQueries(Database):
         self.conn.commit()
     
     def fetch_all_menu(self):
+        """
+        This method fetches all menu items from the database
+        """
         sql =(
             """SELECT * FROM menu 
             """
@@ -119,7 +128,9 @@ class MenuDbQueries(Database):
         return self.convert_output_to_dict(output)
 
     def fetch_menu(self, menu):
-       
+        """
+        This method fetches menu item by object
+        """
         sql =(
             """SELECT * FROM menu WHERE menu_name ='{}' 
             """.format(menu.menu_name)
@@ -129,6 +140,9 @@ class MenuDbQueries(Database):
         return self.convert_output_to_dict(output)
     
     def convert_output_to_dict(self, output):
+        """
+        This method serializes menu item database out put to dictionary
+        """
         menu = []
         for menu_item in output:
             result = {
@@ -142,6 +156,9 @@ class MenuDbQueries(Database):
 
 
     def delete_menu(self, menu_id):
+        """
+        This method deletes a menu item by Id
+        """
         sql = (
             """
             DELETE from menu WHERE menu_id = '{}'
@@ -151,15 +168,25 @@ class MenuDbQueries(Database):
         self.conn.commit()
 
     def drop_table(self):
+        """
+        This method drops the menu table
+        """
         sql = ("""DROP TABLE menu""")
         self.cur.execute(sql)
         self.conn.commit()
 
 class OrderDbQueries(Database):
-
+    """
+    This class inherits from the database class, it handles creation
+    of menu tables, fetching items, and other manipulation staff
+    """
     def __init__(self):
         Database.__init__(self)
+
     def create_table(self):
+        """
+        This method creates orders table in the database
+        """
         sql = (
             """CREATE TABLE IF NOT EXISTS orders (order_id serial PRIMARY KEY,
             menu_id INTEGER NOT NULL REFERENCES menu(menu_id) ON DELETE CASCADE,
@@ -172,7 +199,9 @@ class OrderDbQueries(Database):
     
 
     def place_order(self, order):  
-        """ use order object insted"""
+        """
+        This method places an order to the database
+        """
         sql = (
             """INSERT INTO orders (menu_id, email, status) VALUES ('{}', '{}', '{}')
             """.format(order.menu_id, order.email, order.status)
@@ -181,6 +210,9 @@ class OrderDbQueries(Database):
         self.conn.commit()
     
     def fetch_all_orders(self):
+        """
+        This method fetches all order items from yhe database
+        """
         sql = (
             """SELECT * FROM orders"""
         )
@@ -189,6 +221,10 @@ class OrderDbQueries(Database):
         return self.convert_output_to_dict(output)
 
     def fetch_order(self, email, menu_id):
+        """
+        This method fetches an order belonging to a given user in the
+        database
+        """
         sql = (
             """
             SELECT * FROM orders WHERE email = '{}' AND menu_id = '{}'
@@ -200,6 +236,9 @@ class OrderDbQueries(Database):
         
     
     def fetch_orders(self, email):
+        """
+        This method fetches all orders by email
+        """
         sql = (
             """
             SELECT * FROM orders WHERE email = '{}'
@@ -212,6 +251,9 @@ class OrderDbQueries(Database):
 
 
     def fetch_order_byId(self,orde_id):
+        """
+        This method fecthes an order by Id
+        """
         sql = (
             """
             SELECT * FROM orders WHERE order_id = '{}'
@@ -222,6 +264,9 @@ class OrderDbQueries(Database):
         return self.convert_output_to_dict(output)
 
     def convert_output_to_dict(self, output):
+        """
+        This method serilizes database output to dictionary
+        """
         orders = []
         for order in output:
             result = {
@@ -235,6 +280,9 @@ class OrderDbQueries(Database):
         return orders
 
     def update_order_status(self, order_id, status):
+        """
+        This method updates an order status
+        """
         sql = (
             """
             UPDATE orders SET status = '{}' WHERE order_id = '{}'
@@ -244,10 +292,16 @@ class OrderDbQueries(Database):
         self.conn.commit()
 
     def drop_table(self):
+        """
+        This method drops an order table
+        """
         sql = ("""DROP TABLE orders""")
         self.cur.execute(sql)
         self.conn.commit()
-
+"""
+I use this script to recreate my database development
+tables, if i accidentally run the tests on development
+database
 
 dbuser = UserDbQueries()
 dbuser.create_table()
@@ -255,4 +309,4 @@ dbmenu = MenuDbQueries()
 dbmenu.create_table()
 dborder = OrderDbQueries()
 dborder.create_table()
-
+"""

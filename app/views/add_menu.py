@@ -5,6 +5,10 @@ from app.models.menu import Menu
 from app.models.db_actions import MenuDbQueries
 
 class AddMenu(Resource):
+    """
+    This class inherits from the resource class and implements 
+    an api end point to add menu 
+    """
     def post(self):
         user_request = request.get_json()
         print(user_request)
@@ -23,13 +27,13 @@ class AddMenu(Resource):
                         menu.add_menu_item()
                         if MenuDbQueries().fetch_menu(menu):
                             print(MenuDbQueries().fetch_menu(menu))
-                            return{"response":"menu successfuly created"},201
-                        return {"response":"unsuccessful, server error"},400
+                            return{"message":"menu successfuly created"},201
+                        return {"message":"unsuccessful, server error"},400
                     except:
-                        return {"response":"menu_exists"},409
-                return{"response":"Only admins create menu items"},401
-            return {"response":"Not Authenticated"}
-        return {"response":"empty fields"},400
+                        return {"message":"menu_exists"},409
+                return{"message":"Only admins create menu items"},401
+            return {"message":"Not Authenticated"}
+        return {"message":"empty fields"},400
 
 """
 api.add_resource(AddMenu, "/api/v1/menu")

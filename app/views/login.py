@@ -9,6 +9,11 @@ from app import app
 
 
 class Login(Resource):
+    """
+    This class inherits from the resource class 
+    and implements an end point to login into 
+    the application
+    """
     def post(self):
         user_request = request.get_json()
         email = user_request.get("email")
@@ -22,6 +27,6 @@ class Login(Resource):
                         app.config["SECRET_KEY"]
                     )
                     return {"Authentication": auth_token.decode("UTF-8")},200
-                return {"response":"wrong password"},401
-            return {"response":"User doesnt exist"}, 400
-        return {"response":"empty fields"}, 409
+                return {"message":"wrong password"},401
+            return {"message":"User doesnt exist"}, 400
+        return {"message":"empty fields"}, 409
