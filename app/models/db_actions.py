@@ -11,7 +11,11 @@ class Database:
     def __init__(self,password="#kafuuma#"):
         try:
             if os.getenv("app_settings") == "testing":
+                self.conn = psycopg2.connect(
+                    str(os.getenv("DATABASE_URL))
+                )
                 dbname = "testffood"
+
             else:
                 dbname = "ffood"
             self.conn = psycopg2.connect(
