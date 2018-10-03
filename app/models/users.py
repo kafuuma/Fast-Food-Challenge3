@@ -17,13 +17,16 @@ class Users:
         UserDbQueries().create_user(self)
 
     def login(self):
+        """
+        This method handles user login into the database
+        """
         user_data = UserDbQueries().fetch_user(self)
         if user_data:
             return self.convert_db_output_to_obj(user_data)
         return None
    
     def convert_db_output_to_obj(self, output):
-        """This method converts user data obtained from database into an object"""
+        """This method serializes user data obtained from database into an object"""
         user = Users(
             output[0]["email"], output[0]["password"], output[0]["full_name"],
             output[0]["contact"],output[0]["user_role"]

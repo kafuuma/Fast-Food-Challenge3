@@ -5,6 +5,10 @@ from app.models.orders import Orders
 from app.models.db_actions import OrderDbQueries
 
 class PlaceOrders(Resource):
+    """
+    This class inherits from the resource class
+    it implements an end point to place orders
+    """
     def post(self):
         user_request = request.get_json()
         if user_request:

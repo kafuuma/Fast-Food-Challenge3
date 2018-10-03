@@ -5,6 +5,10 @@ from app.models.users import Users
 from app.models.db_actions import UserDbQueries
 
 class Signup(Resource):
+    """
+    This class inherits from the resource class and
+    imlements an end point to sign up into the app
+    """
     def post(self):
         user_request = request.get_json()
         username = user_request.get("full_name")
@@ -18,11 +22,11 @@ class Signup(Resource):
                 try:
                     Users(email, password, username, contact, user_role).signup()
                     if Users(email, password).login():
-                        return {"response":"signup successfull"}, 201
-                    return {"response":"signup not successful"}, 500
+                        return {"message":"signup successfull"}, 201
+                    return {"message":"signup not successful"}, 500
                 except:
-                    return {"response":"user exists"},409
-            return {"response": "Passwords do not match"}, 401
-        return {"response": "Fields Empty"}, 400
+                    return {"message":"user exists"},409
+            return {"message": "Passwords do not match"}, 401
+        return {"message": "Fields Empty"}, 400
 
 

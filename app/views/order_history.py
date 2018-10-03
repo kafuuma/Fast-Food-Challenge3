@@ -5,6 +5,11 @@ from app.models.orders import Orders
 from app.models.db_actions import OrderDbQueries
 
 class UserOrderHistory(Resource):
+    """
+    This class inherits from the  resource class and 
+    implements an end point for the user to view their
+    order history
+    """
     def get(self):
         auth_token = request.headers["Authentication"]
         user_info = VerifyToken.validate(auth_token)
