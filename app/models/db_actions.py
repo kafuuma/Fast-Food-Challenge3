@@ -249,10 +249,10 @@ class OrderDbQueries(Database):
         self.conn.commit()
 
 
-# dbuser = UserDbQueries()
-# dbuser.create_table()
-# dbmenu = MenuDbQueries()
-# dbmenu.create_table()
-# dborder = OrderDbQueries()
-# dborder.create_table()
+dbuser = UserDbQueries()
+dbuser.create_table()
+dbmenu = MenuDbQueries()
+dbmenu.create_table()
+dborder = OrderDbQueries()
+dborder.create_table()
 

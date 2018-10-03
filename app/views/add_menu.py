@@ -7,11 +7,13 @@ from app.models.db_actions import MenuDbQueries
 class AddMenu(Resource):
     def post(self):
         user_request = request.get_json()
+        print(user_request)
         if user_request:
             menu_name = user_request.get("menu_name")
             menu_descrpn = user_request.get("description")
             menu_price = user_request.get("menu_price")
             auth_token = request.headers["Authentication"]
+            print(auth_token)
             user_info = VerifyToken.validate(auth_token)
             print(user_info)
             if user_info:
@@ -20,13 +22,14 @@ class AddMenu(Resource):
                     try:
                         menu.add_menu_item()
                         if MenuDbQueries().fetch_menu(menu):
-                            return{"response":"menu successfuly created"}
-                        return {"response":"unsuccessful, server error"}
+                            print(MenuDbQueries().fetch_menu(menu))
+                            return{"response":"menu successfuly created"},201
+                        return {"response":"unsuccessful, server error"},400
                     except:
-                        return {"response":"menu_exists"}
-                return{"response":"Only admins create menu items"}
+                        return {"response":"menu_exists"},409
+                return{"response":"Only admins create menu items"},401
             return {"response":"Not Authenticated"}
-        return {"response":"empty fields"}
+        return {"response":"empty fields"},400
 
 """
 api.add_resource(AddMenu, "/api/v1/menu")
