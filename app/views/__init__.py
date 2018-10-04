@@ -1,13 +1,13 @@
 from flask_restful import Resource, Api
-from signup import Signup
-from login import Login
-from add_menu import AddMenu
-from get_menu import GetMenu
-from place_order import PlaceOrders
-from update_status import UpdateOrderStatus
-from order_history import UserOrderHistory
-from fetch_order import FetchSpecificOrder
-from fectch_all_orders import GetAllOrders
+from app.views.signup import Signup
+from app.views.login import Login
+from app.views.add_menu import AddMenu
+from app.views.get_menu import GetMenu
+from app.views.place_order import PlaceOrders
+from app.views.update_status import UpdateOrderStatus
+from app.views.order_history import UserOrderHistory
+from app.views.fetch_order import FetchSpecificOrder
+from app.views.fectch_all_orders import GetAllOrders
 from app.models.db_actions import MenuDbQueries, UserDbQueries, OrderDbQueries
 from app import app
 import os
