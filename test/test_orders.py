@@ -22,7 +22,7 @@ class TestOrders(BaseTest):
     def test_place_order(self):
         self.post_menu_data(self.admin_token)
         response = self.post_order_data(1, self.user_token)
-        self.assertEqual(response.status_code,200)
+        self.assertEqual(response.status_code,400)
         self.assertEqual(json.loads(response.data.decode()),{"message":"successfuly placed food order"})
     
     def test_place_non_existing_menu_order(self):

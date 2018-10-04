@@ -52,6 +52,7 @@ class TestFastFood(BaseTest):
             "henry henry", "ark@gmail.com","secret","secret","07777777777","user"
             )
         response =self.post_user_login_data("ark@gmail.com", "secret")
+        print(json.loads(response.data.decode()))
         user_info = self.decode_token(json.loads(response.data.decode()))
         self.assertEqual(response.status_code,200)
         self.assertEqual(user_info["email"], "ark@gmail.com")

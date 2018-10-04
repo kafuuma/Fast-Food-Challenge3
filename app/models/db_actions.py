@@ -323,4 +323,4 @@ dborder = OrderDbQueries()
 dborder.create_table()
 
 """
-db = Database()
+
