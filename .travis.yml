@@ -2,7 +2,8 @@ language: python
 python:
    "2.7.15"
 env:
-  - export app_settings="testing"
+  - export app_settings=testing
+  - export DB_URL1=postgresql://postgres:#kafuuma#@localhost/testffood
 install:
   - "pip install -r requirements.txt"
 
