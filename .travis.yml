@@ -1,12 +1,15 @@
 language: python
+services:
+  - postgresql
 python:
    "2.7.15"
-     
+
 install:
   - "pip install -r requirements.txt"
 
 before_script:
   - psql -c 'create database testffood;' -U postgres
+  - psql -c 'create database ffood;' -U postgres
 script:
   - nosetests --with-coverage 
 after_success:
