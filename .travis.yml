@@ -2,7 +2,7 @@ language: python
 services:
   - postgresql
 env:
-
+  - SECRET="level2otosecret@#$%^&*()_)(*&^%$#$%^&*()_)(*&^%$#@#$%^&*()"
 python:
    "2.7.15"
 
