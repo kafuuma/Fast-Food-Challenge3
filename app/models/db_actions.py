@@ -24,7 +24,7 @@ class Database:
                     str(os.getenv("DATABASE_URL"))
                     )
             self.cur = self.conn.cursor(cursor_factory=e.DictCursor)
-            self.conn.autocomit = True
+            self.conn.autocommit = True
 
         except (Exception, psycopg2.DatabaseError) as error:
             print("Failed to connect to database")

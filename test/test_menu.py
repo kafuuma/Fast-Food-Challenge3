@@ -19,7 +19,7 @@ class TestMenu(BaseTest):
         auth_token = token_info["Authentication"]
         print(auth_token)
         response = self.post_menu_data(auth_token)
-        self.assertEqual(response.status_code,2019)
+        self.assertEqual(response.status_code,201)
         self.assertEqual(json.loads(response.data.decode()),{"message":"menu successfuly created"})
     
     def test_non_admin_user_menu_add_menu(self):
