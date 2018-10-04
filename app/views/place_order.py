@@ -19,9 +19,9 @@ class PlaceOrders(Resource):
                 try:
                     Orders(user_info["email"],menu_id).create_order()
                     if OrderDbQueries().fetch_order(user_info["email"], menu_id):
-                        return{"response":"successfuly placed food order"}
-                    return{"response":"order not successful"}
+                        return{"message":"successfuly placed food order"},200
+                    return{"message":"order not successful"},404
                 except:
-                    return{"response":"menu doesnt exist"}
-            return{"response":"not authenticated"}
-        return {"response":"empty fields"}
+                    return{"message":"menu doesnt exist"},404
+            return{"message":"not authenticated"},401
+        return {"message":"empty fields"},400

@@ -59,3 +59,71 @@ class BaseTest(unittest.TestCase):
     def decode_token(self, token):
         user_info = decode(token["Authentication"], app.config["SECRET_KEY"])
         return user_info
+
+    def post_menu_data(self, auth_token):
+        response = self.test_client.post(
+                   "/api/v1/menu",
+                   content_type="application/json",
+                data=json.dumps({
+                    "menu_name":"chicken bucket",
+                    "description": "4 pieces served with juice",
+                    "menu_price": 50000
+                }),
+
+                   headers={
+                       "Authentication": auth_token
+                       
+                   }
+            )
+        return response
+
+    def post_order_data(self, menu_id, user_token):
+        response = self.test_client.post(
+                    "/api/v1/users/orders",
+                    content_type="application/json",
+                data=json.dumps({
+                    "menu_id": menu_id
+                }),
+                    headers={
+                        "Authentication":user_token    
+                    }
+            )
+        return response
+
+    
+    def get_order_history_data(self, user_token):
+        response = self.test_client.get(
+                "/api/v1/users/orders",
+
+                content_type="application/json",
+                  
+                headers={
+                     "Authentication":user_token    
+                    }
+           )
+        return response
+
+
+    def token(self):
+        self.post_signup_data(
+           "henry henry", "ark@gmail.com","secret","secret","07777777777","admin"
+            )
+        user_info =self.post_user_login_data("ark@gmail.com", "secret")
+        token_info = json.loads(user_info.data.decode())
+        auth_token = token_info["Authentication"]
+        return auth_token
+
+
+        
+
+    user_token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6InBia2RmMjpzaGEyNTY6NTAwMDAkWmUzZ0lkOVAkNGI4MGU2NmI0YzliYTdlNjQ3ZWY5NTIwNGI4YTg4NTNiNzZhYWQ0ZWEyYjM2NTQ4YzA4NWFmNmFjNGMyMTE3NSIsImVtYWlsIjoiYXJrQGdtYWlsLmNvbSIsInVzZXJfcm9sZSI6InVzZXIifQ.kAelfXMA4m17IrQmKgsScV1xwgN7XYbMJnZcbXshirM"
+        
+    
+
+    admin_token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6InBia2RmMjpzaGEyNTY6NTAwMDAkQkhSNzFXZDYkOTcxZTUyYjU2NjYwMzAyYmYzNDRiMmQ3NjdiN2NjMDNkZGRhMDc0MGNhZmJjYWRjZTcyMDE3NTllYTNhY2IxZSIsImVtYWlsIjoiYXJrQGdtYWlsLmNvbSIsInVzZXJfcm9sZSI6ImFkbWluIn0.Dk2L6sulZjD-e2oLGF4tt8YH9kb6hkkypI6n0c4OznY" 
+        
+        
+      
+    
+
+        
