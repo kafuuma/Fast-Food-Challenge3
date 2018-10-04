@@ -1,4 +1,5 @@
 from flask_restful import Resource, Api
+from flask import jsonify
 from app.views.signup import Signup
 from app.views.login import Login
 from app.views.add_menu import AddMenu
@@ -34,3 +35,11 @@ api.add_resource(FetchSpecificOrder, "/api/v1/orders/<int:order_id>")
 api.add_resource(GetAllOrders, "/api/v1/orders")
 
 
+@app.errorhandler(404)
+def page_doesnt_exist(error):
+    return jsonify({'message': "Bad Request URL doesnt exist"}), 404
+
+
+@app.errorhandler
+def handle_error(error):
+    return {'message': str(error)}, getattr(error, 'code', 400)

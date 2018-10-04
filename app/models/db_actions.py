@@ -4,7 +4,6 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import datetime
 import os
 
-print(os.getenv("APP_SETTINGS"))
 class Database:
     """This class does conn of the database to the application"""
 
@@ -26,7 +25,7 @@ class Database:
                     )
         
             self.cur = self.conn.cursor(cursor_factory=e.DictCursor)
-            print("connected to database")
+           
             
         
         except (Exception, psycopg2.DatabaseError) as error:
