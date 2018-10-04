@@ -14,6 +14,7 @@ import os
 
 app.config["SECRET_KEY"] = os.getenv('SECRET')
 api = Api(app)
+
 dbuser = UserDbQueries()
 dbuser.create_table()
 dbmenu = MenuDbQueries()
