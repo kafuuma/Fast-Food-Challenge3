@@ -24,13 +24,11 @@ class Database:
                     str(os.getenv("DATABASE_URL"))
                     )
         
-            self.cur = self.conn.cursor(cursor_factory=e.DictCursor)
-           
-            
-        
+             
         except (Exception, psycopg2.DatabaseError) as error:
             print("Failed to connect to database")
             print(error)
+        self.cur = self.conn.cursor(cursor_factory=e.DictCursor)
 
 class UserDbQueries(Database):
     """This class inherits from the database class, it does creation and 
