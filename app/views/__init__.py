@@ -11,7 +11,7 @@ from fectch_all_orders import GetAllOrders
 from app import app
 import os
 
-app.config["SECRET_KEY"] = "topsecretlevel2000classified"
+app.config["SECRET_KEY"] = os.getenv('SECRET')
 api = Api(app)
 
 

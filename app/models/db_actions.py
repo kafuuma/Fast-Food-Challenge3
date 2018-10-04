@@ -4,30 +4,35 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import datetime
 import os
 
-
+print(os.getenv("APP_SETTINGS"))
 class Database:
-    """This class does connection of the database to the application"""
+    """This class does conn of the database to the application"""
 
-    def __init__(self,password="#kafuuma#"):
+    def __init__(self):
         try:
-            if os.getenv("app_settings") == "testing":
+            if os.getenv("APP_SETTINGS") == "testing":
                 self.conn = psycopg2.connect(
-                    str(os.getenv("DATABASE_URL))
-                )
-                dbname = "testffood"
-
+                    str(os.getenv("DB_URL1")))
+                    
+                print("connected to testffood")
+            elif os.getenv("APP_SETTINGS") == "development":
+                self.conn = psycopg2.connect(
+                    str(os.getenv("DB_URL2"))
+                    )
+                print("connected to ffood")
             else:
-                dbname = "ffood"
-            self.conn = psycopg2.connect(
-                """dbname='{}' user='postgres' password='{}' host='localhost' port='5432'
-                """.format(dbname,password)
-            )
+                self.conn = psycopg2.connect(
+                    str(os.getenv("DATABASE_URL"))
+                    )
+        
             self.cur = self.conn.cursor(cursor_factory=e.DictCursor)
-            print("connected to database {}".format(dbname))
-            print(os.getenv("app_settings"))
-        except:
+            print("connected to database")
+            
+        
+        except (Exception, psycopg2.DatabaseError) as error:
             print("Failed to connect to database")
-    
+            print(error)
+
 class UserDbQueries(Database):
     """This class inherits from the database class, it does creation and 
     insertion of user data into the database, plus all data manipulation"""
@@ -129,7 +134,9 @@ class MenuDbQueries(Database):
         )
         self.cur.execute(sql)
         output = self.cur.fetchall()
-        return self.convert_output_to_dict(output)
+        result = self.convert_output_to_dict(output)
+        print(result)
+        return result
 
     def fetch_menu(self, menu):
         """
@@ -307,10 +314,13 @@ I use this script to recreate my database development
 tables, if i accidentally run the tests on development
 database
 
+
 dbuser = UserDbQueries()
 dbuser.create_table()
 dbmenu = MenuDbQueries()
 dbmenu.create_table()
 dborder = OrderDbQueries()
 dborder.create_table()
+
 """
+db = Database()

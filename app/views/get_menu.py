@@ -15,7 +15,7 @@ class GetMenu(Resource):
         if user_info:
             response = MenuDbQueries().fetch_all_menu()
             if response:
-                return{"message": response}
-            return {"message":"no menu"}
-        return{"message":"Not Authenticated"}
+                return{"message": response},200
+            return {"message":"menu_doesn't exist"},404
+        return{"message":"Not Authenticated"},401
     
