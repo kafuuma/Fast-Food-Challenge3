@@ -25,7 +25,7 @@ class Database:
                     )
         
             self.cur = self.conn.cursor(cursor_factory=e.DictCursor)
-            print("connected to database")
+           
             
         
         except (Exception, psycopg2.DatabaseError) as error:
