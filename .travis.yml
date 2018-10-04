@@ -1,6 +1,8 @@
 language: python
 services:
   - postgresql
+env:
+
 python:
    "2.7.15"
 
@@ -11,6 +13,6 @@ before_script:
   - psql -c 'create database testffood;' -U postgres
   - psql -c 'create database ffood;' -U postgres
 script:
-  - nosetests --with-coverage 
+  - nosetests --with-coverage -v
 after_success:
   - "coveralls"

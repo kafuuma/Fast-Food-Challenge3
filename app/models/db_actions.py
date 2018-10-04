@@ -14,7 +14,7 @@ class Database:
                     str(os.getenv("DB_URL1")))
                     
                 print("connected to testffood")
-            elif os.getenv("APP_SETTINGS") == "development":
+            elif os.getenv("DB_URL") == "development":
                 self.conn = psycopg2.connect(
                     str(os.getenv("DB_URL2"))
                     )
@@ -25,7 +25,7 @@ class Database:
                     )
             self.cur = self.conn.cursor(cursor_factory=e.DictCursor)
             self.conn.autocomit = True
-            
+
         except (Exception, psycopg2.DatabaseError) as error:
             print("Failed to connect to database")
             print(error)
