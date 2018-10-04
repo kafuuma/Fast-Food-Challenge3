@@ -10,4 +10,15 @@ __pycache__/
 app/__pycache__/
 */*.pyc
 app/models/validate.pyc
+app/models/menu.pyc
+app/models/orders.pyc
+app/views/add_menu.pyc
+app/views/fectch_all_orders.pyc
+app/views/fetch_order.pyc
+app/views/get_menu.pyc
+app/views/login.pyc
+app/views/order_history.pyc
+app/views/place_order.pyc
+app/views/update_status.pyc
+run.pyc
 
