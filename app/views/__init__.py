@@ -10,6 +10,7 @@ from app.views.fetch_order import FetchSpecificOrder
 from app.views.fectch_all_orders import GetAllOrders
 from app.models.db_actions import MenuDbQueries, UserDbQueries, OrderDbQueries
 from app import app
+
 import os
 
 app.config["SECRET_KEY"] = os.getenv('SECRET')
