@@ -16,8 +16,8 @@ class Login(Resource):
     """
     def post(self):
         user_request = request.get_json()
-        email = user_request.get("email")
-        password = user_request.get("password")
+        email = str(user_request.get("email"))
+        password = str(user_request.get("password"))
         if user_request:
             user = Users(email, password).login()
             if user:
