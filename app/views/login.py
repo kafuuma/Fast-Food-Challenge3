@@ -26,7 +26,10 @@ class Login(Resource):
                         {"email":user.email, "password":user.password, "user_role":user.user_role},
                         app.config["SECRET_KEY"]
                     )
-                    return {"Authentication": auth_token.decode("UTF-8")},200
+                    return {    
+                                "message":"login successfull",
+                                "Authentication": auth_token.decode("UTF-8")
+                            },200
                 return {"message":"wrong password"},401
             return {"message":"User doesnt exist"}, 400
         return {"message":"empty fields"}, 409

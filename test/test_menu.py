@@ -17,7 +17,6 @@ class TestMenu(BaseTest):
         user_info =self.post_user_login_data("ark@gmail.com", "secret")
         token_info = json.loads(user_info.data.decode())
         auth_token = token_info["Authentication"]
-        print(auth_token)
         response = self.post_menu_data(auth_token)
         self.assertEqual(response.status_code,201)
         self.assertEqual(json.loads(response.data.decode()),{"message":"menu successfuly created"})
