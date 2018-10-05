@@ -23,7 +23,7 @@ class Signup(Resource):
                     Users(email, password, username, contact, user_role).signup()
                     if Users(email, password).login():
                         return {"message":"signup successfull"}, 201
-                    return {"message":"signup not successful"}, 500
+                    return {"message":"signup not successful"}, 501
                 except:
                     return {"message":"user exists"},409
             return {"message": "Passwords do not match"}, 401

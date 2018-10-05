@@ -104,26 +104,16 @@ class BaseTest(unittest.TestCase):
         return response
 
 
-    def token(self):
-        self.post_signup_data(
-           "henry henry", "ark@gmail.com","secret","secret","07777777777","admin"
-            )
-        user_info =self.post_user_login_data("ark@gmail.com", "secret")
-        token_info = json.loads(user_info.data.decode())
-        auth_token = token_info["Authentication"]
-        return auth_token
+    # def token(self):
+    #     self.post_signup_data(
+    #        "henry henry", "ark@gmail.com","secret","secret","07777777777","admin"
+    #         )
+    #     user_info =self.post_user_login_data("ark@gmail.com", "secret")
+    #     token_info = json.loads(user_info.data.decode())
+    #     auth_token = token_info["Authentication"]
+    #     return auth_token
 
 
         
 
-    user_token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6InBia2RmMjpzaGEyNTY6NTAwMDAkaE5FNjV5Z1gkZDE3ZWRhNzYyZmVlM2Q3NGY5OWQ1YzU1ODk5MWUzMzNiOTFiYTVjYTI1Y2NlMGRkMzUxYjk2ZWU1N2E0NTJiMiIsImVtYWlsIjoiYXJrQGdtYWlsLmNvbSIsInVzZXJfcm9sZSI6ImFkbWluIn0.qt_xhXaEj59a2A2QFkkeFaubbeUsrCAhGt5CsB5MhkU"
-        
     
-
-    admin_token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6InBia2RmMjpzaGEyNTY6NTAwMDAkcVV2TllYNzgkYzc5OTJlNWRlYjY1YzY2MzAwOTcwYzdiZWU0YmNiNThjYzcwOGU3ZjExMDFkNjE0M2QyZWRmMjE5ZTIzZmZjMSIsImVtYWlsIjoiYXJrQGdtYWlsLmNvbSIsInVzZXJfcm9sZSI6ImFkbWluIn0.ULGqtqbogB4l8Ry27PXoG7Sl4oKDEoM5PsbAQ_PW6vY"
-        
-        
-      
-    
-
-        

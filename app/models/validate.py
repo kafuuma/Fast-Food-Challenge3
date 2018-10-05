@@ -35,12 +35,12 @@ class VerifyUsers:
         empty = False
         if len(self.password.strip(" ")) == 0:
             empty = True
-        # if len(self.full_name(" ")) == 0:
-        #     empty =True
-        # if len(self.email.strip(" ")) ==0:
-        #     empty = True
-        # if len(self.user_role.strip(" ")) ==0:
-        #     empty = True
+        if len(self.full_name(" ")) == 0:
+            empty =True
+        if len(self.email.strip(" ")) ==0:
+            empty = True
+        if len(self.user_role.strip(" ")) ==0:
+            empty = True
         return empty
 
     def check_if_empty(self):
