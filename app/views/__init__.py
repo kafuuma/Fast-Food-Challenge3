@@ -17,12 +17,12 @@ import os
 app.config["SECRET_KEY"] = os.getenv('SECRET')
 api = Api(app)
 
-# dbuser = UserDbQueries()
-# dbuser.create_table()
-# dbmenu = MenuDbQueries()
-# dbmenu.create_table()
-# dborder = OrderDbQueries()
-# dborder.create_table()
+dbuser = UserDbQueries()
+dbuser.create_table()
+dbmenu = MenuDbQueries()
+dbmenu.create_table()
+dborder = OrderDbQueries()
+dborder.create_table()
 
 api.add_resource(Signup, "/api/v1/auth/signup")
 api.add_resource(Login, "/api/v1/auth/login")
@@ -35,11 +35,3 @@ api.add_resource(FetchSpecificOrder, "/api/v1/orders/<int:order_id>")
 api.add_resource(GetAllOrders, "/api/v1/orders")
 
 
-@app.errorhandler(404)
-def page_doesnt_exist(error):
-    return jsonify({'message': "Bad Request URL doesnt exist"}), 404
-
-
-@app.errorhandler
-def handle_error(error):
-    return {'message': str(error)}, getattr(error, 'code', 400)

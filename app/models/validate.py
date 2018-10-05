@@ -24,17 +24,29 @@ class VerifyUsers:
 
     """This class verifies user data and checks it for validity"""
 
-    def __init__(self, full_name, password, email, contact, user_role):
+    def __init__(self,password, email, full_name="",  contact="", user_role=""):
         self.full_name = full_name
         self.password = password
         self.email = email
         self.contact = contact
         self.user_role = user_role
 
+    def check_empty_login(self):
+        empty = False
+        if len(self.password.strip(" ")) == 0:
+            empty = True
+        # if len(self.full_name(" ")) == 0:
+        #     empty =True
+        # if len(self.email.strip(" ")) ==0:
+        #     empty = True
+        # if len(self.user_role.strip(" ")) ==0:
+        #     empty = True
+        return empty
+
     def check_if_empty(self):
         """This checks if field is empty"""
-        if len(self.full_name.strip(" ")) != 0 or len(self.password.strip(" ")) !=0 or len(self.email.strip(" ")) != 0\
-            or len(self.contact.strip(" ")) !=0 or len(self.user_role.strip(" ")) != 0:
+        if len(self.full_name.strip(" ")) == 0 or len(self.password.strip(" ")) ==0 or len(self.email.strip(" ")) != 0\
+            or len(self.contact.strip(" ")) ==0 or len(self.user_role.strip(" ")) == 0:
             return True
         return False
 
@@ -90,3 +102,8 @@ class VerifyOrders:
             if len(self.order_id.strip(" ")) != 0:
                 return True
             return False
+
+
+ver =VerifyMenu("","","")
+VerifyOrders(1)
+VerifyUsers("","","")

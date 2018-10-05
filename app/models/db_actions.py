@@ -14,7 +14,7 @@ class Database:
                     str(os.getenv("DB_URL1")))
                     
                 print("connected to testffood")
-            elif os.getenv("DB_URL") == "development":
+            elif os.getenv("APP_SETTINGS") == "development":
                 self.conn = psycopg2.connect(
                     str(os.getenv("DB_URL2"))
                     )
@@ -307,18 +307,3 @@ class OrderDbQueries(Database):
         sql = ("""DROP TABLE orders""")
         self.cur.execute(sql)
         self.conn.commit()
-"""
-I use this script to recreate my database development
-tables, if i accidentally run the tests on development
-database
-
-
-dbuser = UserDbQueries()
-dbuser.create_table()
-dbmenu = MenuDbQueries()
-dbmenu.create_table()
-dborder = OrderDbQueries()
-dborder.create_table()
-
-"""
-
