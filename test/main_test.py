@@ -104,14 +104,6 @@ class BaseTest(unittest.TestCase):
         return response
 
 
-    # def token(self):
-    #     self.post_signup_data(
-    #        "henry henry", "ark@gmail.com","secret","secret","07777777777","admin"
-    #         )
-    #     user_info =self.post_user_login_data("ark@gmail.com", "secret")
-    #     token_info = json.loads(user_info.data.decode())
-    #     auth_token = token_info["Authentication"]
-    #     return auth_token
 
 
         

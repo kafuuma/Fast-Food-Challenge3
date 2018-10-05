@@ -80,24 +80,32 @@ class TestOrders(BaseTest):
         self.assertEqual(response.status_code,400)
         self.assertEqual(json.loads(response.data.decode()),{"message":"empty fields"})
         
-    # def test_get_order_history(self):
-    #     self.post_menu_data(self.admin_token)
-    #     self.post_order_data(1,self.user_token)
-    #     self.post_order_data(1,self.user_token)
-    #     response = self.get_order_history_data(self.user_token)
-    #     self.assertEqual(response.status_code,200)
-        
-    # def test_fetch_no_orders(self):
-    #     response = self.get_order_history_data(self.user_token)
-    #     self.assertEqual(response.status_code,404)
-    #     self.assertEqual(json.loads(response.data.decode()),{"message":"no orders for you"})
-    
-    # def test_fetch_order_history_non_authenticated_user(self):
-    #     self.post_menu_data(self.admin_token)
-    #     self.post_order_data(1,self.user_token)
-    #     self.post_order_data(1,self.user_token)
-    #     response = self.get_order_history_data(self.user_token+" ")
-    #     self.assertEqual(response.status_code,401)
-    #     self.assertEqual(json.loads(response.data.decode()),{"message":"not authenticated"})
-      
+    def test_get_order_history(self):
+        self.post_signup_data(
+            "henry henry", "ark@gmail.com","secret","secret","07777777777","admin"
+            )
+        user_info =self.post_user_login_data("ark@gmail.com", "secret")
+        token_info = json.loads(user_info.data.decode())
+        auth_token = token_info["Authentication"]
+        self.post_menu_data(auth_token)
+        self.post_signup_data(
+            "henry henry", "arrrrk@gmail.com","secret","secret","07777777777","user"
+            )
+        user_info =self.post_user_login_data("ark@gmail.com", "secret")
+        token_info = json.loads(user_info.data.decode())
+        auth_token = token_info["Authentication"]
+        self.post_order_data(1, auth_token)
+        self.post_order_data(1, auth_token)
+        self.post_order_data(1, auth_token)
+        response = self.test_client.get(
+             "/api/v1/users/orders",
+                    content_type="application/json",
+                    headers={
+                        "Authentication":auth_token   
+                    }
+        )
+        self.assertEqual(response.status_code,200)
+        self.assertTrue(json.loads(response.data.decode()))
 
+
+   
