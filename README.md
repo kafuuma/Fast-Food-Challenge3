@@ -9,7 +9,7 @@
 This is a fast food delivery application for a fast food restaurent created\
 during Andela Bootcamp check, for UI [HERE](https://kafuuma.github.io/FAST-FOOD-APP/)
 
-The is App deployed on Heroku [HERE](https://dashboard.heroku.com/apps/fast-food-appn/deploy/github)
+The is App deployed on Heroku [HERE](https://fastfasatfood.herokuapp.com/api/v1/auth/signup)
 
 ## project overview
 
@@ -37,7 +37,7 @@ The is App deployed on Heroku [HERE](https://dashboard.heroku.com/apps/fast-food
    ```
 * Move into the Fast-food-challenge2 directory by typing the command below
 ```sh
-   $ cd Fast-food-challenge2
+   $ cd Fast-Food-challenge3
    ```
 * Create a virtual environment by running
 ```sh
@@ -50,7 +50,7 @@ The is App deployed on Heroku [HERE](https://dashboard.heroku.com/apps/fast-food
 
 * Install all requiered dependencies by running 
 ```sh
-    $ pip install requirements.txt
+    $ pip install -r requirements.txt
    ```
 * Run the app
 ```sh
@@ -59,11 +59,9 @@ The is App deployed on Heroku [HERE](https://dashboard.heroku.com/apps/fast-food
 
 ### Running the test
 * To run a test, You will have to cd into the project directory and run the command below
+
 ```sh
-    $ python -m unittest discover -v
-   ```
-```sh
-    $ nosetests --with-coverage
+    $ nosetests --with-coverage -v
    ```
 
 ## Built With
@@ -71,7 +69,7 @@ The is App deployed on Heroku [HERE](https://dashboard.heroku.com/apps/fast-food
 * [HTML](https://www.w3.org/html/) - Hypertext Markup Language.
 * [CSS](https://www.w3.org/Style/CSS/Overview.en.html) - Cascading Style Sheets.
 * [PYTHON 2.7](https://www.python.org/) - An interpreted high-level programming language for general-purpose programming.
-* [FLASK](http://flask.pocoo.org/) - A microframework for Python based on Werkzeug and Jinja 2.
+* [FLASKFlask-RESTful](https://flask-restful.readthedocs.io/en/latest/) - A microframework for Python based on Werkzeug and Jinja 2.
 * [PYTHON PIP](https://pip.pypa.io/en/stable/installing/) - A python package managing tool.
 * [GIT](https://git-scm.com/) - A free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
 
