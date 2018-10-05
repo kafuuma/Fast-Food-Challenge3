@@ -16,7 +16,6 @@ class UserOrderHistory(Resource):
         if user_info:
             response = OrderDbQueries().fetch_orders(user_info["email"])
             if response:
-                 print(response) 
                  return{"message":response},200
             return{"message":"no orders for you"},404
         return{"message":"not authenticated"},401
