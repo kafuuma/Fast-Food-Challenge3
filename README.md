@@ -89,6 +89,7 @@ The is App deployed on Heroku [HERE](https://fastfasatfood.herokuapp.com/api/v1/
 | Get available menu | GET | /menu |
 | Add a meal option to the menu | POST | /menu |
 
+![screenshot from 2018-09-27 14-19-43](https://user-images.githubusercontent.com/39337548/46531475-06dbe200-c8a6-11e8-895f-f884074b5893.png)
 
 ## Developer
 - _**arkafuuma@gmail.com**_
