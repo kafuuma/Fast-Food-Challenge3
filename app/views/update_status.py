@@ -12,15 +12,18 @@ class UpdateOrderStatus(Resource):
         if user_request:
             auth_token = request.headers["Authentication"]
             user_info = VerifyToken.validate(auth_token)
+            status = user_request.get("status")
+            valid = VerifyOrders(order_id, status)
             if user_info:
-                if user_info["user_role"] == "admin":
-                    status = user_request.get("status")
-                    if OrderDbQueries().fetch_order_byId(order_id):
-                        try:
-                            OrderDbQueries().update_order_status(int(order_id),status)
-                            return{"message":"order status updated to {}".format(status)}
-                        except:
-                            return{"message":"{} is not valid input".format(status)}
-                    return{"message":"order doesn't exist"}
-            return{"message":"not authenticated"}
-        return{"message":"empty fields"}
+                if valid.check_order():
+                    if user_info["user_role"] == "admin":
+                        if OrderDbQueries().fetch_order_byId(order_id):
+                            try:
+                                OrderDbQueries().update_order_status(int(order_id),status)
+                                return{"message":"order status updated to {}".format(status)}
+                            except:
+                                return{"message":"{} is not valid input".format(status)},500
+                        return{"message":"order doesn't exist"},404
+                    return{"message":"not authenticated"},401
+                return {"message":"status must not be empty"},400
+        return{"message":"empty fields"},400

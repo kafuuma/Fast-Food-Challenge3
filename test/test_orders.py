@@ -8,9 +8,9 @@ class TestOrders(BaseTest):
    
     def generate_admin_token(self):
         self.post_signup_data(
-            "henry henry", "ark@gmail.com","secret","secret","07777777777","admin"
+            "henry henry", "ark@gmail.com","topsecret","topsecret","07777777777","admin"
             )
-        user_info =self.post_user_login_data("ark@gmail.com", "secret")
+        user_info =self.post_user_login_data("ark@gmail.com", "topsecret")
         token_info = json.loads(user_info.data.decode())
         auth_token = token_info["Authentication"]
         return auth_token
@@ -21,9 +21,9 @@ class TestOrders(BaseTest):
 
     def test_place_order(self):
         self.post_signup_data(
-            "henry henry", "ark@gmail.com","secret","secret","07777777777","admin"
+            "henry henry", "ark@gmail.com","topsecret","topsecret","07777777777","admin"
             )
-        user_info =self.post_user_login_data("ark@gmail.com", "secret")
+        user_info =self.post_user_login_data("ark@gmail.com", "topsecret")
         token_info = json.loads(user_info.data.decode())
         auth_token = token_info["Authentication"]
         self.post_menu_data(auth_token)
@@ -33,9 +33,9 @@ class TestOrders(BaseTest):
     
     def test_place_non_existing_menu_order(self):
         self.post_signup_data(
-            "henry henry", "ark@gmail.com","secret","secret","07777777777","admin"
+            "henry henry", "ark@gmail.com","topsecret","topsecret","07777777777","admin"
             )
-        user_info =self.post_user_login_data("ark@gmail.com", "secret")
+        user_info =self.post_user_login_data("ark@gmail.com", "topsecret")
         token_info = json.loads(user_info.data.decode())
         auth_token = token_info["Authentication"]
         self.post_menu_data(auth_token)
@@ -45,9 +45,9 @@ class TestOrders(BaseTest):
 
     def test_place_order_non_authenticate_user(self):
         self.post_signup_data(
-            "henry henry", "ark@gmail.com","secret","secret","07777777777","admin"
+            "henry henry", "ark@gmail.com","topsecret","topsecret","07777777777","admin"
             )
-        user_info =self.post_user_login_data("ark@gmail.com", "secret")
+        user_info =self.post_user_login_data("ark@gmail.com", "topsecret")
         token_info = json.loads(user_info.data.decode())
         auth_token = token_info["Authentication"]
         self.post_menu_data(auth_token)
@@ -57,16 +57,16 @@ class TestOrders(BaseTest):
 
     def test_place_with_empty_field(self):
         self.post_signup_data(
-            "henry henry", "ark@gmail.com","secret","secret","07777777777","admin"
+            "henry henry", "ark@gmail.com","topsecret","topsecret","07777777777","admin"
             )
-        user_info =self.post_user_login_data("ark@gmail.com", "secret")
+        user_info =self.post_user_login_data("ark@gmail.com", "topsecret")
         token_info = json.loads(user_info.data.decode())
         auth_token = token_info["Authentication"]
         self.post_menu_data(auth_token)
         self.post_signup_data(
-            "henry henry", "arrk@gmail.com","secret","secret","07777777777","user"
+            "henry henry", "arrk@gmail.com","topsecret","topsecret","07777777777","user"
             )
-        user_info =self.post_user_login_data("arrk@gmail.com", "secret")
+        user_info =self.post_user_login_data("arrk@gmail.com", "topsecret")
         token_info = json.loads(user_info.data.decode())
         auth_token = token_info["Authentication"]
         response = self.test_client.post(
@@ -82,16 +82,16 @@ class TestOrders(BaseTest):
         
     def test_get_order_history(self):
         self.post_signup_data(
-            "henry henry", "ark@gmail.com","secret","secret","07777777777","admin"
+            "henry henry", "ark@gmail.com","topsecret","topsecret","07777777777","admin"
             )
-        user_info =self.post_user_login_data("ark@gmail.com", "secret")
+        user_info =self.post_user_login_data("ark@gmail.com", "topsecret")
         token_info = json.loads(user_info.data.decode())
         auth_token = token_info["Authentication"]
         self.post_menu_data(auth_token)
         self.post_signup_data(
-            "henry henry", "arrrrk@gmail.com","secret","secret","07777777777","user"
+            "henry henry", "arrrrk@gmail.com","topsecret","topsecret","07777777777","user"
             )
-        user_info =self.post_user_login_data("ark@gmail.com", "secret")
+        user_info =self.post_user_login_data("ark@gmail.com", "topsecret")
         token_info = json.loads(user_info.data.decode())
         auth_token = token_info["Authentication"]
         self.post_order_data(1, auth_token)
