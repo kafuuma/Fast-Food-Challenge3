@@ -18,15 +18,15 @@ import os
 app.config["SECRET_KEY"] = os.getenv('SECRET')
 api = Api(app)
 
-# dbuser = UserDbQueries()
-# dbuser.create_table()
-# dbmenu = MenuDbQueries()
-# dbmenu.create_table()
-# dborder = OrderDbQueries()
-# dborder.create_table()
-# supper_user = Users("super@email.com","password@super","super","078808881","admin")
-# if not supper_user.login():
-#     supper_user.signup()
+dbuser = UserDbQueries()
+dbuser.create_table()
+dbmenu = MenuDbQueries()
+dbmenu.create_table()
+dborder = OrderDbQueries()
+dborder.create_table()
+supper_user = Users("super@email.com","password@super","super","078808881","admin")
+if not supper_user.login():
+    supper_user.signup()
 
 api.add_resource(Signup, "/api/v1/auth/signup")
 api.add_resource(Login, "/api/v1/auth/login")
