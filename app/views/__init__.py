@@ -9,6 +9,7 @@ from app.views.update_status import UpdateOrderStatus
 from app.views.order_history import UserOrderHistory
 from app.views.fetch_order import FetchSpecificOrder
 from app.views.fectch_all_orders import GetAllOrders
+from app.models.users import Users
 from app.models.db_actions import MenuDbQueries, UserDbQueries, OrderDbQueries
 from app import app
 
@@ -23,6 +24,9 @@ dbmenu = MenuDbQueries()
 dbmenu.create_table()
 dborder = OrderDbQueries()
 dborder.create_table()
+supper_user = Users("super@email.com","password@super","super","078808881","admin")
+if not supper_user.login():
+    supper_user.signup()
 
 api.add_resource(Signup, "/api/v1/auth/signup")
 api.add_resource(Login, "/api/v1/auth/login")

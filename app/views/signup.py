@@ -16,6 +16,8 @@ class Signup(Resource):
         email = user_request.get("email")
         contact = user_request.get("contact")
         user_role = user_request.get("user_role")
+        if not user_role:
+            user_role = "user"
         confirm_password = user_request.get("confirm_password")
         valid = VerifyUsers(password, email,username,contact,user_role)
         if user_request:
