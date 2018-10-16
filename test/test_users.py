@@ -7,7 +7,7 @@ class TestFastFood(BaseTest):
 
   
     def test_user_object_creation(self):
-        user = Users("ark@gmail.com",'secret')
+        user = Users("ark@gmail.com",'topsecret')
         self.assertIsInstance(user, Users)
 
     def test_database_object_creation(self):
@@ -16,24 +16,24 @@ class TestFastFood(BaseTest):
 
     def test_user_signup(self):
         response = self.post_signup_data(
-            "henry henry", "ark@gmail.com","secret","secret","07777777777","user"   
+            "henry henry", "ark@gmail.com","topsecret","topsecret","07777777777","user"   
         )
         self.assertEqual(response.status_code,201)
         self.assertEqual(json.loads(response.data.decode()),{"message":"signup successfull"})
        
     def test_signup_already_existing_user(self):
         self.post_signup_data(
-            "henry henry", "ark@gmail.com","secret","secret","07777777777","user"   
+            "henry henry", "ark@gmail.com","topsecret","topsecret","07777777777","user"   
            )
         response = self.post_signup_data(
-            "henry henry", "ark@gmail.com","secret","secret","07777777777","user"   
+            "henry henry", "ark@gmail.com","topsecret","topsecret","07777777777","user"   
          )
         self.assertEqual(response.status_code,409)
         self.assertEqual(json.loads(response.data.decode()),{"message":"user exists"})
 
     def test_signup_unmatching_passwords(self):
         response = self.post_signup_data(
-            "henry henry", "ark@gmail.com","secret","topsecret","07777777777","user"   
+            "henry henry", "ark@gmail.com","topsecret","toptopsecret","07777777777","user"   
            )
         self.assertEqual(response.status_code, 401)
         self.assertEqual(json.loads(response.data.decode()),{"message": "Passwords do not match"})
@@ -49,9 +49,9 @@ class TestFastFood(BaseTest):
         
     def test_user_login(self):
         self.post_signup_data(
-            "henry henry", "ark@gmail.com","secret","secret","07777777777","user"
+            "henry henry", "ark@gmail.com","topsecret","topsecret","07777777777","user"
             )
-        response =self.post_user_login_data("ark@gmail.com", "secret")
+        response =self.post_user_login_data("ark@gmail.com", "topsecret")
         print(json.loads(response.data.decode()))
         user_info = self.decode_token(json.loads(response.data.decode()))
         self.assertEqual(response.status_code,200)
@@ -60,14 +60,14 @@ class TestFastFood(BaseTest):
 
     def test_user_login_invalid_pasword(self):
         self.post_signup_data(
-            "henry henry", "ark@gmail.com","secret","secret","07777777777","user"
+            "henry henry", "ark@gmail.com","topsecret","topsecret","07777777777","user"
             )
-        response =self.post_user_login_data("ark@gmail.com", "topsecret")
+        response =self.post_user_login_data("ark@gmail.com", "toptopsecret")
         self.assertEqual(response.status_code,401)
         self.assertEqual(json.loads(response.data.decode()),{"message":"wrong password"})
 
     def test_login_non_existing_user(self):
-        response =self.post_user_login_data("ark@gmail.com", "topsecret")
+        response =self.post_user_login_data("ark@gmail.com", "toptopsecret")
         self.assertEqual(response.status_code,400)
         self.assertEqual(json.loads(response.data.decode()),{"message":"User doesnt exist"})
 

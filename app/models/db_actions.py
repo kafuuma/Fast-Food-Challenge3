@@ -28,8 +28,7 @@ class Database:
 
         except (Exception, psycopg2.DatabaseError) as error:
             print("Failed to connect to database")
-            print(error)
-        
+            print(error)     
 
 class UserDbQueries(Database):
     """This class inherits from the database class, it does creation and 
@@ -66,6 +65,7 @@ class UserDbQueries(Database):
             )
         self.cur.execute(sql)
         return self.cur.fetchall()
+
        
     def delete_user(self, user_id):
         """This method fetches a user from the database by Id"""
@@ -76,6 +76,7 @@ class UserDbQueries(Database):
             )
         self.cur.execute(sql)
         self.conn.commit()
+        
 
 
     def change_user_role(self,role, user_id):
@@ -87,17 +88,18 @@ class UserDbQueries(Database):
         )
         self.cur.execute(sql)
         self.conn.commit()
+        
 
     def drop_table(self):
         """This method deletes a table from the database"""
         sql = ("""DROP TABLE users""")
         self.cur.execute(sql)
         self.conn.commit()
+        
 
 class MenuDbQueries(Database):
     def __init__(self):
         Database.__init__(self)
-
     def create_table(self):
         """
         This method creates a menu table into the database
@@ -109,6 +111,7 @@ class MenuDbQueries(Database):
         )
         self.cur.execute(sql)
         self.conn.commit()
+        
 
     def create_menu_item(self,menu):
         """
@@ -121,6 +124,7 @@ class MenuDbQueries(Database):
         )
         self.cur.execute(sql)
         self.conn.commit()
+        
     
     def fetch_all_menu(self):
         """
@@ -132,9 +136,8 @@ class MenuDbQueries(Database):
         )
         self.cur.execute(sql)
         output = self.cur.fetchall()
-        result = self.convert_output_to_dict(output)
-        print(result)
-        return result
+        return self.convert_output_to_dict(output)
+      
 
     def fetch_menu(self, menu):
         """
@@ -175,6 +178,7 @@ class MenuDbQueries(Database):
         )
         self.cur.execute(sql)
         self.conn.commit()
+        
 
     def drop_table(self):
         """
@@ -183,6 +187,7 @@ class MenuDbQueries(Database):
         sql = ("""DROP TABLE menu""")
         self.cur.execute(sql)
         self.conn.commit()
+        
 
 class OrderDbQueries(Database):
     """
@@ -191,7 +196,7 @@ class OrderDbQueries(Database):
     """
     def __init__(self):
         Database.__init__(self)
-
+        
     def create_table(self):
         """
         This method creates orders table in the database
@@ -205,6 +210,7 @@ class OrderDbQueries(Database):
         )
         self.cur.execute(sql)
         self.conn.commit()
+        
     
 
     def place_order(self, order):  
@@ -217,6 +223,7 @@ class OrderDbQueries(Database):
         )
         self.cur.execute(sql)
         self.conn.commit()
+        
     
     def fetch_all_orders(self):
         """
@@ -299,6 +306,7 @@ class OrderDbQueries(Database):
         )
         self.cur.execute(sql)
         self.conn.commit()
+        
 
     def drop_table(self):
         """
@@ -307,3 +315,4 @@ class OrderDbQueries(Database):
         sql = ("""DROP TABLE orders""")
         self.cur.execute(sql)
         self.conn.commit()
+        
