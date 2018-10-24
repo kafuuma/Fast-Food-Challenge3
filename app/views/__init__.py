@@ -13,6 +13,7 @@ from app.models.users import Users
 from app.models.db_actions import MenuDbQueries, UserDbQueries, OrderDbQueries
 from app import app
 
+
 import os
 
 app.config["SECRET_KEY"] = os.getenv('SECRET')

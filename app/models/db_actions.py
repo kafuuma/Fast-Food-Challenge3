@@ -106,7 +106,8 @@ class MenuDbQueries(Database):
         """
         sql = (
             """CREATE TABLE IF NOT EXISTS menu (menu_id serial PRIMARY KEY ,
-            menu_name varchar(100) UNIQUE, menu_price REAL, description varchar(200));
+            menu_name varchar(100) UNIQUE, menu_price REAL, description varchar(500),
+            menu_image varchar(20));
             """
         )
         self.cur.execute(sql)
@@ -118,9 +119,9 @@ class MenuDbQueries(Database):
         This method insert fields into the menu table
         """
         sql =(
-            """INSERT INTO menu (menu_name, menu_price,  description ) 
-            VALUES('{}','{}','{}');
-            """.format(menu.menu_name,menu.menu_price, menu.description)
+            """INSERT INTO menu (menu_name, menu_price,  description, menu_image ) 
+            VALUES('{}','{}','{}','{}');
+            """.format(menu.menu_name,menu.menu_price, menu.description, menu.menu_image)
         )
         self.cur.execute(sql)
         self.conn.commit()
@@ -161,7 +162,8 @@ class MenuDbQueries(Database):
                 "menu_id": menu_item["menu_id"],
                 "menu_name": menu_item["menu_name"],
                 "menu_price": menu_item["menu_price"],
-                "description": menu_item["description"]
+                "description": menu_item["description"],
+                "menu_image": menu_item["menu_image"]
               }
             menu.append(result)
         return menu
