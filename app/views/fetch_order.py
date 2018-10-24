@@ -15,7 +15,10 @@ class FetchSpecificOrder(Resource):
         if user_info:
             if user_info["user_role"] == "admin":
                 response = OrderDbQueries().fetch_order_byId(int(order_id))
-                return {"message":response},200
+                return {
+                        "order":response,
+                        "message":"successfully fetched order"
+                        },200
             return {"message":" only admins access this resource"},404
         return {"message":"not authenticated"},404
      

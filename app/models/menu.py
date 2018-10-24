@@ -5,10 +5,11 @@ class Menu:
     """
     This is a menu class, it handles menu object creation
     """
-    def __init__(self,menu_name="", description="", price=""):
+    def __init__(self,menu_name="", description="", price="",menu_image=""):
         self.menu_name = menu_name
         self.description = description
         self.menu_price = price
+        self.menu_image = menu_image
         
     def add_menu_item(self):
         """

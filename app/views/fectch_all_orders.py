@@ -16,6 +16,7 @@ class GetAllOrders(Resource):
         if user_info:
             if user_info["user_role"] == "admin":
                 response = OrderDbQueries().fetch_all_orders()
-                return {"message": response},200
+                return {"message":"successfully fetched orders",
+                        "orders": response},200
             return {"message":"only admins have access all orders"},404
         return{"message":"not authinticated"},404

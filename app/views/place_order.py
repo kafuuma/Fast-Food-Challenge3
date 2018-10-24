@@ -11,6 +11,7 @@ class PlaceOrders(Resource):
     """
     def post(self):
         user_request = request.get_json()
+        print(user_request)
         if user_request:
             auth_token = request.headers["Authentication"]
             user_info = VerifyToken.validate(auth_token)

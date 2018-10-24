@@ -20,7 +20,7 @@ class Login(Resource):
         password = user_request.get("password")
         valid = VerifyUsers(password, email)
         if user_request:
-            if not valid.check_empty_login():
+            if valid.check_empty_login():
                 user = Users(email, password).login()
                 if user:
                     if check_password_hash(user.password, password):
@@ -30,7 +30,8 @@ class Login(Resource):
                         )
                         return {    
                                     "message":"login successfull",
-                                    "Authentication": auth_token.decode("UTF-8")
+                                    "Authentication": auth_token.decode("UTF-8"),
+                                    "user_role":user.user_role
                                 },200
                     return {"message":"wrong password"},401
                 return {"message":"User doesnt exist"}, 400

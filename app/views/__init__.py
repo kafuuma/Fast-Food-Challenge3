@@ -13,17 +13,18 @@ from app.models.users import Users
 from app.models.db_actions import MenuDbQueries, UserDbQueries, OrderDbQueries
 from app import app
 
+
 import os
 
 app.config["SECRET_KEY"] = os.getenv('SECRET')
 api = Api(app)
 
-dbuser = UserDbQueries()
-dbuser.create_table()
-dbmenu = MenuDbQueries()
-dbmenu.create_table()
-dborder = OrderDbQueries()
-dborder.create_table()
+# dbuser = UserDbQueries()
+# dbuser.create_table()
+# dbmenu = MenuDbQueries()
+# dbmenu.create_table()
+# dborder = OrderDbQueries()
+# dborder.create_table()
 supper_user = Users("super@email.com","password@super","super","078808881","admin")
 if not supper_user.login():
     supper_user.signup()
@@ -37,5 +38,3 @@ api.add_resource(UpdateOrderStatus, "/api/v1/orders/<int:order_id>")
 api.add_resource(UserOrderHistory, "/api/v1/users/orders")
 api.add_resource(FetchSpecificOrder, "/api/v1/orders/<int:order_id>")
 api.add_resource(GetAllOrders, "/api/v1/orders")
-
-
