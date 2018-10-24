@@ -20,7 +20,7 @@ class UpdateOrderStatus(Resource):
                         if OrderDbQueries().fetch_order_byId(order_id):
                             try:
                                 OrderDbQueries().update_order_status(int(order_id),status)
-                                return{"message":"order status updated to {}".format(status)}
+                                return{"message":"order status updated successfuly"},201
                             except:
                                 return{"message":"{} is not valid input".format(status)},500
                         return{"message":"order doesn't exist"},404

@@ -29,7 +29,7 @@ class VerifyUsers:
         self.user_role = user_role
 
     def check_empty_login(self):
-        if len(self.full_name.strip(" ")) == 0 or len(self.password.strip(" ")) ==0:
+        if len(self.email.strip(" ")) == 0 or len(self.password.strip(" ")) ==0:
             return False
         return True
 
@@ -78,7 +78,7 @@ class VerifyMenu:
         return False
     
     def check_menu_price(self):
-        if isinstance(self.menu_price,float) or isinstance(self.menu_price, int):
+        if isinstance(float(self.menu_price),float) or isinstance(self.menu_price, float):
             return True
         return False
    

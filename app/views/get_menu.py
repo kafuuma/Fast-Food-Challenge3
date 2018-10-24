@@ -10,12 +10,9 @@ class GetMenu(Resource):
     It iplements an end point to fetch menu items
     """
     def get(self):
-        auth_token = request.headers["Authentication"]
-        user_info = VerifyToken.validate(auth_token)
-        if user_info:
-            response = MenuDbQueries().fetch_all_menu()
-            if response:
-                return{"message": response},200
-            return {"message":"menu_doesn't exist"},404
-        return{"message":"Not Authenticated"},401
+        response = MenuDbQueries().fetch_all_menu()
+        if response:
+            return{"menu": response,
+                    "message":"successfuly fetched all menu"},200
+        return {"message":"menu_doesn't exist"},404
     
