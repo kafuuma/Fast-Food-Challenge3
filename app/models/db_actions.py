@@ -4,6 +4,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import datetime
 import os
 
+
 class Database:
     """This class does conn of the database to the application"""
 
@@ -12,23 +13,24 @@ class Database:
             if os.getenv("APP_SETTINGS") == "testing":
                 self.conn = psycopg2.connect(
                     str(os.getenv("DB_URL1")))
-                    
+
                 print("connected to testffood")
             elif os.getenv("APP_SETTINGS") == "development":
                 self.conn = psycopg2.connect(
                     str(os.getenv("DB_URL2"))
-                    )
+                )
                 print("connected to ffood")
             else:
                 self.conn = psycopg2.connect(
                     str(os.getenv("DATABASE_URL"))
-                    )
+                )
             self.cur = self.conn.cursor(cursor_factory=e.DictCursor)
             self.conn.autocommit = True
 
         except (Exception, psycopg2.DatabaseError) as error:
             print("Failed to connect to database")
-            print(error)     
+            print(error)
+
 
 class UserDbQueries(Database):
     """This class inherits from the database class, it does creation and 
@@ -36,7 +38,7 @@ class UserDbQueries(Database):
 
     def __init__(self):
         Database.__init__(self)
-    
+
     def create_table(self):
         """This method creates a user table in the database"""
         sql = (
@@ -48,38 +50,35 @@ class UserDbQueries(Database):
 
     def create_user(self, user):
         """This method inserts a user into a user table in the database"""
-        sql =(
+        sql = (
             """INSERT INTO users (full_name , email, password, contact, user_role) 
             VALUES('{}','{}','{}','{}','{}');
-            """.format(user.full_name, user.email, 
-                generate_password_hash(user.password), user.contact, user.user_role)
-            )
+            """.format(user.full_name, user.email,
+                       generate_password_hash(user.password), user.contact, user.user_role)
+        )
         self.cur.execute(sql)
         self.conn.commit()
 
     def fetch_user(self, user):
         """This method fetches a user from the database"""
-        sql =(
+        sql = (
             """SELECT * FROM users WHERE email = '{}';
             """.format(user.email)
-            )
+        )
         self.cur.execute(sql)
         return self.cur.fetchall()
 
-       
     def delete_user(self, user_id):
         """This method fetches a user from the database by Id"""
         sql = (
             """
             DELETE FROM users WHERE user_id = '{}'
             """.format(user_id)
-            )
+        )
         self.cur.execute(sql)
         self.conn.commit()
-        
 
-
-    def change_user_role(self,role, user_id):
+    def change_user_role(self, role, user_id):
         """This method updates a user role in the database"""
         sql = (
             """
@@ -88,18 +87,18 @@ class UserDbQueries(Database):
         )
         self.cur.execute(sql)
         self.conn.commit()
-        
 
     def drop_table(self):
         """This method deletes a table from the database"""
         sql = ("""DROP TABLE users""")
         self.cur.execute(sql)
         self.conn.commit()
-        
+
 
 class MenuDbQueries(Database):
     def __init__(self):
         Database.__init__(self)
+
     def create_table(self):
         """
         This method creates a menu table into the database
@@ -112,46 +111,43 @@ class MenuDbQueries(Database):
         )
         self.cur.execute(sql)
         self.conn.commit()
-        
 
-    def create_menu_item(self,menu):
+    def create_menu_item(self, menu):
         """
         This method insert fields into the menu table
         """
-        sql =(
+        sql = (
             """INSERT INTO menu (menu_name, menu_price,  description, menu_image ) 
             VALUES('{}','{}','{}','{}');
-            """.format(menu.menu_name,menu.menu_price, menu.description, menu.menu_image)
+            """.format(menu.menu_name, menu.menu_price, menu.description, menu.menu_image)
         )
         self.cur.execute(sql)
         self.conn.commit()
-        
-    
+
     def fetch_all_menu(self):
         """
         This method fetches all menu items from the database
         """
-        sql =(
+        sql = (
             """SELECT * FROM menu 
             """
         )
         self.cur.execute(sql)
         output = self.cur.fetchall()
         return self.convert_output_to_dict(output)
-      
 
     def fetch_menu(self, menu):
         """
         This method fetches menu item by object
         """
-        sql =(
+        sql = (
             """SELECT * FROM menu WHERE menu_name ='{}' 
             """.format(menu.menu_name)
         )
         self.cur.execute(sql)
         output = self.cur.fetchall()
         return self.convert_output_to_dict(output)
-    
+
     def convert_output_to_dict(self, output):
         """
         This method serializes menu item database out put to dictionary
@@ -164,10 +160,9 @@ class MenuDbQueries(Database):
                 "menu_price": menu_item["menu_price"],
                 "description": menu_item["description"],
                 "menu_image": menu_item["menu_image"]
-              }
+            }
             menu.append(result)
         return menu
-
 
     def delete_menu(self, menu_id):
         """
@@ -180,7 +175,6 @@ class MenuDbQueries(Database):
         )
         self.cur.execute(sql)
         self.conn.commit()
-        
 
     def drop_table(self):
         """
@@ -189,16 +183,17 @@ class MenuDbQueries(Database):
         sql = ("""DROP TABLE menu""")
         self.cur.execute(sql)
         self.conn.commit()
-        
+
 
 class OrderDbQueries(Database):
     """
     This class inherits from the database class, it handles creation
     of menu tables, fetching items, and other manipulation staff
     """
+
     def __init__(self):
         Database.__init__(self)
-        
+
     def create_table(self):
         """
         This method creates orders table in the database
@@ -212,10 +207,8 @@ class OrderDbQueries(Database):
         )
         self.cur.execute(sql)
         self.conn.commit()
-        
-    
 
-    def place_order(self, order):  
+    def place_order(self, order):
         """
         This method places an order to the database
         """
@@ -225,8 +218,7 @@ class OrderDbQueries(Database):
         )
         self.cur.execute(sql)
         self.conn.commit()
-        
-    
+
     def fetch_all_orders(self):
         """
         This method fetches all order items from yhe database
@@ -251,8 +243,7 @@ class OrderDbQueries(Database):
         self.cur.execute(sql)
         output = self.cur.fetchall()
         return self.convert_output_to_dict(output)
-        
-    
+
     def fetch_orders(self, email):
         """
         This method fetches all orders by email
@@ -261,14 +252,12 @@ class OrderDbQueries(Database):
             """
             SELECT * FROM orders WHERE email = '{}'
             """.format(email)
-         )
+        )
         self.cur.execute(sql)
         output = self.cur.fetchall()
         return self.convert_output_to_dict(output)
 
-
-
-    def fetch_order_byId(self,orde_id):
+    def fetch_order_byId(self, orde_id):
         """
         This method fecthes an order by Id
         """
@@ -278,7 +267,7 @@ class OrderDbQueries(Database):
             """.format(orde_id)
         )
         self.cur.execute(sql)
-        output= self.cur.fetchall()
+        output = self.cur.fetchall()
         return self.convert_output_to_dict(output)
 
     def convert_output_to_dict(self, output):
@@ -293,7 +282,7 @@ class OrderDbQueries(Database):
                 "email": order["email"],
                 "status": order["status"],
                 # "ordered_at": order["ordered_at"]
-                }
+            }
             orders.append(result)
         return orders
 
@@ -308,7 +297,6 @@ class OrderDbQueries(Database):
         )
         self.cur.execute(sql)
         self.conn.commit()
-        
 
     def drop_table(self):
         """
@@ -317,4 +305,3 @@ class OrderDbQueries(Database):
         sql = ("""DROP TABLE orders""")
         self.cur.execute(sql)
         self.conn.commit()
-        
